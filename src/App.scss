@@ -1,0 +1,275 @@
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.App {
+  margin-top: 20vh;
+}
+
+.logIn {
+  font-family: Roboto, sans-serif;
+  cursor: pointer;
+  color: #2196f3;
+  float:right;
+  background-color: transparent;
+  font-size: 0.8em;
+  font-weight: 500;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: background-color .1s linear;
+  outline: none;
+  text-align: center;
+
+  &:hover {
+    background-color: rgba(33, 150, 243, 0.1);
+  }
+}
+
+body, html {
+  background-color: #eeeeee;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.task_list-pagination {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+
+  & strong {
+    margin: 0 2px;
+    font-weight: 500;
+  }
+
+  & button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:disabled {
+      color: #939393;
+      cursor: default;
+    }
+  }
+}
+
+.task_list-loader {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #454545;
+
+  animation: spin 0.5s infinite linear;
+}
+
+.tasks_list {
+  display: block;
+  margin: 40px 10px 10px;
+  background-color: white;
+  border-radius: 4px;
+  padding: 12px 0;
+
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+}
+
+.task_list-item {
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+  & > div {
+    flex: 1 1 0;
+    text-align: center;
+    border-color: grey;
+    max-width: 25vw;
+    word-break: break-word;
+  }
+
+  &.header {
+    color: rgba(0, 0, 0, 0.54);
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.75rem;
+  }
+}
+
+.header-sort {
+  cursor: pointer;
+
+  transition: color .2s linear;
+
+  &:hover, &.active {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.header-sort_icon {
+  font-size: 1.4rem;
+  margin: 2px;
+
+  color: rgba(0, 0, 0, 0.54);
+
+  &.selected {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.button_new-task {
+  font-family: Roboto, sans-serif;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: #fff;
+  background-color: #2196f3;
+  font-size: 0.8em;
+  font-weight: 500;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: background-color .3s linear;
+  outline: none;
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+  text-align: center;
+
+  &:hover {
+    background-color: darken(#2196f3, 10%);
+  }
+}
+
+
+.new-task_popup {
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  & .wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 4px;
+    width: 30vw;
+    height: 40vh;
+    background-color: white;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+
+
+    & form {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      & button {
+        display: inline-block;
+        margin: 10px 5px 0;
+        width: 80px;
+        font-size: 1em;
+        text-transform: uppercase;
+        font-family: Roboto, sans-serif;
+        box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);
+        background-color: #2196f3;
+        border: none;
+        border-radius: 4px;
+        padding: 6px 16px;
+        color: white;
+        cursor: pointer;
+        transition: background-color .1s linear;
+
+        &:hover {
+          background-color: darken(#2196f3, 10%);
+        }
+
+        &:disabled {
+          color: rgba(0, 0, 0, 0.26);
+          box-shadow: none;
+          background-color: rgba(0, 0, 0, 0.12)
+        }
+
+        &.cancel {
+          color: rgb(225, 0, 80);
+          box-shadow: none;
+          cursor: pointer;
+          background-color: transparent;
+
+
+          &:hover {
+            background: rgba(225, 0, 80, 0.1);
+          }
+        }
+
+      }
+    }
+
+    & input {
+      border: none;
+      border-bottom: 1px solid #2196f3;
+      margin: 5px 0 7px;
+      font-size: 0.9rem;
+      font-family: Roboto, sans-serif;
+
+      transition: border-bottom-color .3s linear;
+
+      &.red {
+        border-color: darkred;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    & .error {
+      color: darkred;
+    }
+  }
+
+}
+
+.login-error {
+  color: rgb(225, 0, 80);
+  width: 100%;
+  padding: 10px 0;
+  background: rgba(225, 0, 80, 0.1);
+}
+
+.button_edit-task {
+  background-color: lightgray;
+  border: none;
+  border-radius: 62%;
+  padding: 2px 4px;
+  cursor: pointer;
+
+  outline: none;
+
+  transition: background-color .1s linear;
+
+  &:hover {
+    background-color: #2196f3;
+  }
+}
