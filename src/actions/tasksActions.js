@@ -89,14 +89,17 @@ export function createTask(task) {
     }
 }
 
-const editTaskSuccess = () => ({
-    type: EDIT_TASK_SUCCESS
+const editTaskSuccess = (task, id) => ({
+    type: EDIT_TASK_SUCCESS,
+    payload : {
+        task,
+        id
+    }
 });
 
 
 export function editTask(task, id) {
-    let params_string = `status=${task.status ? '10': '0'}&text=${encodeURIComponent(task.text)}&token=${encodeURIComponent('beejee')}`;
-
+    let params_string = `status=${encodeURIComponent(task.status ? 10 : 0)}&text=${encodeURIComponent(task.text)}&token=beejee`;
     const md5Hash = md5(params_string);
 
     let HTTP_EDIT_HEADERS = {
@@ -105,16 +108,17 @@ export function editTask(task, id) {
         }
     };
 
+    let formData = new FormData();
+    formData.set('signature', md5Hash);
+    formData.set('status', task.status ? 10 : 0);
+    formData.set('text', task.text);
+    formData.set('token', 'beejee');
+
     return dispatch => {
-       axios
-            .post(`${API_URL}edit/${id}?developer=Name`, {
-                status: task.status ? '10': '0',
-                text: task.text,
-                signature: md5Hash,
-                token: 'beejee'
-            }, HTTP_EDIT_HEADERS)
+        axios
+            .post(`${API_URL}edit/${id}?developer=Name`, formData, HTTP_EDIT_HEADERS)
             .then(response => {
-                response.data.status === 'ok' && dispatch(editTaskSuccess())
+                response.data.status === 'ok' && dispatch(editTaskSuccess(task, id))
             })
     }
 

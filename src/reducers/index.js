@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
     ADD_TASK_FAILURE,
     ADD_TASK_SUCCESS,
+    EDIT_TASK_SUCCESS,
     GET_TASKS_FAILURE,
     GET_TASKS_STARTED,
     GET_TASKS_SUCCESS,
@@ -49,7 +50,7 @@ function tasks(
         case ADD_TASK_SUCCESS: {
             return {
                 ...state,
-                totalTasks: parseInt(state.totalTasks) + 1
+                totalTasks: parseInt(state.totalTasks) + 1,
             }
         }
 
@@ -57,6 +58,19 @@ function tasks(
             return {
                 ...state,
                 addError: action.payload.message
+            }
+        }
+
+        case EDIT_TASK_SUCCESS: {
+            return {
+                ...state,
+                tasksList: state.tasksList.map(task => (
+                    task.id === action.payload.id ? ({
+                        ...task,
+                        text: action.payload.task.text,
+                        status: action.payload.task.status ? 10 : 0
+                    }) : task
+                ))
             }
         }
 
